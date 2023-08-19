@@ -8,6 +8,28 @@ type TodoListProps = {
 };
 
 function TodoList({ todos, handleDelete, handleChecked }: TodoListProps) {
+
+  function filter(filter:string) {
+
+    
+    return
+  }
+
+  // function Completed() {
+  //   const { inputRef, handleSubmit, todos, handleChecked, handleDelete } =
+  //     useContext(TodoContext);
+  
+  //   let completedTodos = useMemo(
+  //     () => todos.filter((todo) => todo.completed && !todo.deleted),
+  //     [todos]
+  //   );
+  
+  //   useEffect(() => {
+  //     return () => {
+  //       completedTodos = [];
+  //     };
+  //   }, []);
+
   return (
     <section id="todos">
       <h2>Todos</h2>
