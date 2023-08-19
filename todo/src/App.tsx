@@ -1,69 +1,31 @@
-import React, { useRef, useState } from "react";
-import { v4 as uuidv4 } from "uuid";
 import "./App.css";
-import { dummyTodoList } from "./data";
-import { Todo } from "./types";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-import TodoList from "./components/TodoList";
-import AddTodo from "./components/AddTodo";
+import Completed from "./pages/Completed";
+import Inprogres from "./pages/Inprogres";
+import Deleted from "./pages/deleted";
+
+import Navbar from "./components/Navbar";
+
+import { TodoContextProvider } from "./context/todoContext";
 
 function App() {
-  const [todos, setTodos] = useState<Todo[]>(dummyTodoList);
-
-  const inputRef = useRef<HTMLInputElement>(null);
-
-  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-    const inputValue = inputRef.current?.value;
-
-    if (inputValue) {
-      const newTodo: Todo = {
-        title: inputValue,
-        completed: false,
-        id: uuidv4(),
-      };
-
-      setTodos((currentTodos) => [...currentTodos, newTodo]);
-      inputRef.current!.value = "";
-    }
-  }
-
-  function handleDelete(todoId: string) {
-    setTodos((currentTodos) => {
-      return currentTodos.filter(({ id }) => id !== todoId);
-    });
-  }
-
-  function handleChecked(checkboxId: string) {
-    setTodos((currentTodos) => {
-      return currentTodos.map((todo) => {
-        if (todo.id === checkboxId) {
-          return {
-            ...todo,
-            completed: !todo.completed,
-          };
-        } else {
-          return todo;
-        }
-      });
-    });
-  }
-
   return (
-    <div className="app">
-      <h1>Todo List</h1>
+    <TodoContextProvider>
+      <div className="app">
+        <BrowserRouter>
+          <Navbar />
 
-      <AddTodo inputElement={inputRef} handleSubmit={handleSubmit} />
-
-      <TodoList
-        todos={todos}
-        handleChecked={handleChecked}
-        handleDelete={handleDelete}
-      />
-    </div>
+          <Routes>
+            <Route index element={<Inprogres />} />
+            <Route path="deleted" element={<Deleted />} />
+            <Route path="completed" element={<Completed />} />
+            {/* <Route path="*" element={<NoPage />} /> */}
+          </Routes>
+        </BrowserRouter>
+      </div>
+    </TodoContextProvider>
   );
 }
 
 export default App;
-
-
