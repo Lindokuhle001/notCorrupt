@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import "./Form.css"
+import React, { useState } from "react";
+import "./Form.css";
 
 interface FormValues {
   email: string;
@@ -8,9 +8,9 @@ interface FormValues {
 }
 
 const initialFormValues: FormValues = {
-  email: '',
-  password: '',
-  confirmPassword: '',
+  email: "",
+  password: "",
+  confirmPassword: "",
 };
 
 const MyForm: React.FC = () => {
@@ -27,12 +27,12 @@ const MyForm: React.FC = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     // You can add your form submission logic here
-    console.log('Form submitted:', formValues);
+    console.log("Form submitted:", formValues);
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <div>
+    <form className="my-form" onSubmit={handleSubmit}>
+      <div className="input-container">
         <label htmlFor="email">Email:</label>
         <input
           type="email"
@@ -43,7 +43,7 @@ const MyForm: React.FC = () => {
           required
         />
       </div>
-      <div>
+      <div className="input-container">
         <label htmlFor="password">Password:</label>
         <input
           type="password"
@@ -54,7 +54,7 @@ const MyForm: React.FC = () => {
           required
         />
       </div>
-      <div>
+      <div className="input-container">
         <label htmlFor="confirmPassword">Confirm Password:</label>
         <input
           type="password"
